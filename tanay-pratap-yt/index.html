@@ -16,6 +16,27 @@
     </style>
 </head>
 <body>
-    <button>+</button>
+    <button id="btnCounter">+</button>
+<script>
+    //Listen to click event
+
+    //Take a number which starts from zero
+    //Document  - Whatver you see in the browser is the document the DOM
+    let counter = 0;
+    //Every click increment a number
+
+    function counterIncrement() {
+        counter++;
+        console.log(counter);
+    }
+
+    const element = document.querySelector("#btnCounter");
+
+    element.addEventListener('click', counterIncrement, false);
+    // console.log(element)
+    //console.log(element) If you print this, you will get `null` as the script is loaded first, document is parsed from top to bottom
+    //and there is no button when this code runs. To solve this, we have two approaches - Either use onload or move script block at the bottom
+    //before you use a variable , you need to define it
+</script>
 </body>
 </html>
