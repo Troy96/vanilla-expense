@@ -2,77 +2,101 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Personal Expense</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Expense</title>
 
-<style>
-    body {
-        display:  flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
 
-        height: 100vh;
-    }
-</style>
+            height: 100vh;
+        }
+    </style>
 </head>
 
 <body>
-<h1 id="headingTotal"></h1>
-<input id="inputAmount" type="text">
-<input id="inputDesc" type="text">
-<button id="btnAddExpense">+</button>
+    <h1 id="headingTotal"></h1>
+    <input id="inputAmount" type="text">
+    <input id="inputDesc" type="text">
+    <button id="btnAddExpense">+</button>
+    <div id="expenseTable"></div>
 
-<script>
-    let totalExpense = 0;
-    //init value of expense at 0
+    <script>
+        let totalExpense = 0;
+        //init value of expense at 0
 
-    const headingEl = document.querySelector('#headingTotal');
-    //get the heading element
+        const headingEl = document.querySelector('#headingTotal');
+        //get the heading element
 
-    //Allexpense at one place
-    const Allexpenses = [];
+        //Allexpense at one place
+        const Allexpenses = [];
 
-    const inputElement = document.querySelector("#inputAmount");
-    //ref to input amount
+        const inputElement = document.querySelector("#inputAmount");
+        //ref to input amount
 
-    const inputDescEl = document.querySelector('#inputDesc');
-    //get the ref to desc element
+        const inputDescEl = document.querySelector('#inputDesc');
 
-    headingEl.textContent = totalExpense; //Check why textContent is preferred over innerHTML
-    //set the heading element to totalExpense
+        const expenseTableEl = document.querySelector('#expenseTable')
 
-    function addExpenseToTotal() {
-        const expenseItem = {}
-        
-        const textAmount = inputElement.value;
-        const textDesc = inputDescEl.value;
-        //read the description
-        //console.log({ textAmount });
-        //Read value from input
+        //get the ref to desc element
 
-        const expense = parseInt(textAmount, 10);
-
-        expenseItem.desc = textDesc;
-        expenseItem.amount = expense;
-        //put it in object
-        Allexpenses.push(expenseItem);
-
-        // console.log( {expense} ) //Can be used to log and see the number/string
-        //Convert it into number
-
-        totalExpense = totalExpense + expense;
-        headingEl.textContent = totalExpense;
+        headingEl.textContent = totalExpense; //Check why textContent is preferred over innerHTML
         //set the heading element to totalExpense
-        //Add that value to totalExpense
-    }
 
-    //onButtonClick add inputAmount to totalExpense
-    const element = document.querySelector("#btnAddExpense");
+        function addExpenseToTotal() {
+            const expenseItem = {}
 
-    //Listen to click event
-    element.addEventListener('click', addExpenseToTotal, false);
+            const textAmount = inputElement.value;
+            const textDesc = inputDescEl.value;
+            //read the description
+            //console.log({ textAmount });
+            //Read value from input
+
+            const expense = parseInt(textAmount, 10);
+
+            expenseItem.desc = textDesc;
+            expenseItem.amount = expense;
+            //put it in object
+            Allexpenses.push(expenseItem);
+
+            // console.log( {expense} ) //Can be used to log and see the number/string
+            //Convert it into number
+            totalExpense = totalExpense + expense;
+            const someText = `Total ${totalExpense}`;
+
+            headingEl.textContent = someText;
+            //set the heading element to totalExpense
+            //Add that value to totalExpense
+
+            //show table here
+            const data1 = Allexpenses[0];
+            const data2 = Allexpenses[1];
+
+            const data1Text = `Expense: ${data1.amount} :: Desc: ${data1.desc}`;
+            const data2Text = `Expense: ${data2.amount} :: Desc: ${data2.desc}`;
+
+            const tableText = `
+                <div>${data1Text}</div>
+                <div>${data2Text}</div>
+            `;
+
+            expenseTableEl.innerHTML = tableText;
+
+
+        }
+
+        //onButtonClick add inputAmount to totalExpense
+        const element = document.querySelector("#btnAddExpense");
+
+
+        //Listen to click event
+        element.addEventListener('click', addExpenseToTotal, false);
+
+
 //Take a number which starts from zero
 //document  - Whatver you see in the browser is the document the DOM
 //Every click increment a number
@@ -87,7 +111,7 @@
 //console.log(element) If you print this, you will get `null` as the script is loaded first, document is parsed from top to bottom
 //and there is no button when this code runs. To solve this, we have two approaches - Either use onload or move script block at the bottom
 //before you use a variable , you need to define it
-</script>
+    </script>
 </body>
 
 </html>
