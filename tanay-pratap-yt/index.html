@@ -73,18 +73,22 @@
             //Add that value to totalExpense
 
             //show table here
-            const data1 = Allexpenses[0];
-            const data2 = Allexpenses[1];
+            // const data1 = Allexpenses[0];
+            // const data2 = Allexpenses[1];
 
-            const data1Text = `Expense: ${data1.amount} :: Desc: ${data1.desc}`;
-            const data2Text = `Expense: ${data2.amount} :: Desc: ${data2.desc}`;
+            // const data1Text = `Expense: ${data1.amount} :: Desc: ${data1.desc}`;
+            // const data2Text = `Expense: ${data2.amount} :: Desc: ${data2.desc}`;
 
-            const tableText = `
-                <div>${data1Text}</div>
-                <div>${data2Text}</div>
-            `;
+            // const tableText = `
+            //     <div>${data1Text}</div>
+            //     <div>${data2Text}</div>
+            // `;
 
-            expenseTableEl.innerHTML = tableText;
+           const allExpenseHTML =  Allexpenses.map(expense=> {
+                return `<div>Expense: ${expense.amount} :: Desc: ${expense.desc}</div>`
+            }).join("");
+
+            expenseTableEl.innerHTML =  allExpenseHTML;
 
 
         }
