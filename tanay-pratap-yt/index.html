@@ -137,21 +137,26 @@
             // `;
 
             const allExpenseHTML = Allexpenses.map(expense => {
+                createListItem(expense)
+            })
+
+            //View Layer
+            function createListItem({ desc, amount }) {
                 return `
                 <li class="list-group-item d-flex justify-content-between">
                         <div class="d-flex flex-column">
-                            ${expense.desc}
+                            ${desc}
                             <small class="text-muted">${new Date}</small>
                         </div>
                         <div>
-                            <span class="px-5">${expense.amount}</span>
+                            <span class="px-5">${amount}</span>
                             <button type="button" class="btn btn-outline-danger">Delete
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                         </div>
                     </li>
                 `;
-            })
+            }
 
             expenseTableEl.innerHTML = allExpenseHTML;
 
