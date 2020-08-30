@@ -52,19 +52,7 @@
             </div>
 
             <div>
-                <ul class="list-group" id="expenseTable">
-                    <li class="list-group-item d-flex justify-content-between">
-                        <div class="d-flex flex-column">
-                            Tshirt
-                            <small class="text-muted">August 30, 2020</small>
-                        </div>
-                        <div>
-                            <span class="px-5">500</span>
-                            <button type="button" class="btn btn-outline-danger btn-sm">
-                                <i class="fas fa-trash-alt"></i> </button>
-                        </div>
-                    </li>
-                </ul>
+                <ul class="list-group" id="expenseTable"></ul>
             </div>
 
 
@@ -93,6 +81,9 @@
         const inputDescEl = document.querySelector('#inputDesc');
 
         const expenseTableEl = document.querySelector('#expenseTable')
+
+        const element = document.querySelector("#btnAddExpense");
+
 
         //get the ref to desc element
 
@@ -124,51 +115,31 @@
             //set the heading element to totalExpense
             //Add that value to totalExpense
 
-            //show table here
-            // const data1 = Allexpenses[0];
-            // const data2 = Allexpenses[1];
+            const allExpenseHTML = Allexpenses.map(expense => createListItem(expense));
+            expenseTableEl.innerHTML = allExpenseHTML.join('');
 
-            // const data1Text = `Expense: ${data1.amount} :: Desc: ${data1.desc}`;
-            // const data2Text = `Expense: ${data2.amount} :: Desc: ${data2.desc}`;
 
-            // const tableText = `
-            //     <div>${data1Text}</div>
-            //     <div>${data2Text}</div>
-            // `;
+        }
 
-            const allExpenseHTML = Allexpenses.map(expense => {
-                createListItem(expense)
-            })
+        element.addEventListener('click', addExpenseToTotal, false);
 
-            //View Layer
-            function createListItem({ desc, amount }) {
-                return `
+        //View Layer
+        function createListItem(expense) {
+            return `
                 <li class="list-group-item d-flex justify-content-between">
                         <div class="d-flex flex-column">
-                            ${desc}
+                            ${expense.desc}
                             <small class="text-muted">${new Date}</small>
                         </div>
                         <div>
-                            <span class="px-5">${amount}</span>
-                            <button type="button" class="btn btn-outline-danger">Delete
+                            <span class="px-5">${expense.amount}</span>
+                            <button type="button" class="btn btn-outline-danger">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                         </div>
                     </li>
                 `;
-            }
-
-            expenseTableEl.innerHTML = allExpenseHTML;
-
-
         }
-
-        //onButtonClick add inputAmount to totalExpense
-        const element = document.querySelector("#btnAddExpense");
-
-
-        //Listen to click event
-        element.addEventListener('click', addExpenseToTotal, false);
 
 
 //Take a number which starts from zero
