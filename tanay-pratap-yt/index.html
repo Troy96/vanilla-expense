@@ -2,60 +2,79 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Expense</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personal Expense</title>
 
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+<style>
+    body {
+        display:  flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
 
-            height: 100vh;
-        }
-    </style>
+        height: 100vh;
+    }
+</style>
 </head>
 
 <body>
-    <h1 id="headingTotal"></h1>
-    <button id="btnAddExpense">+</button>
-    <input id="inputAmount" type="text">
-    <script>
-        let totalExpense = 0;
-        //init value of expense at 0
+<h1 id="headingTotal"></h1>
+<input id="inputAmount" type="text">
+<input id="inputDesc" type="text">
+<button id="btnAddExpense">+</button>
 
-        const headingEl = document.querySelector('#headingTotal');
-        //get the heading element
+<script>
+    let totalExpense = 0;
+    //init value of expense at 0
 
-        headingEl.textContent = totalExpense; //Check why textContent is preferred over innerHTML
+    const headingEl = document.querySelector('#headingTotal');
+    //get the heading element
+
+    //Allexpense at one place
+    const Allexpenses = [];
+
+    const inputElement = document.querySelector("#inputAmount");
+    //ref to input amount
+
+    const inputDescEl = document.querySelector('#inputDesc');
+    //get the ref to desc element
+
+    headingEl.textContent = totalExpense; //Check why textContent is preferred over innerHTML
+    //set the heading element to totalExpense
+
+    function addExpenseToTotal() {
+        const expenseItem = {}
+        
+        const textAmount = inputElement.value;
+        const textDesc = inputDescEl.value;
+        //read the description
+        //console.log({ textAmount });
+        //Read value from input
+
+        const expense = parseInt(textAmount, 10);
+
+        expenseItem.desc = textDesc;
+        expenseItem.amount = expense;
+        //put it in object
+        Allexpenses.push(expenseItem);
+
+        // console.log( {expense} ) //Can be used to log and see the number/string
+        //Convert it into number
+
+        totalExpense = totalExpense + expense;
+        headingEl.textContent = totalExpense;
         //set the heading element to totalExpense
+        //Add that value to totalExpense
+    }
 
-        function addExpenseToTotal() {
-            const inputElement = document.querySelector("#inputAmount");
-            const textAmount = inputElement.value;
-            //console.log({ textAmount });
+    //onButtonClick add inputAmount to totalExpense
+    const element = document.querySelector("#btnAddExpense");
 
-            //Read value from input
-
-            const expense = parseInt(textAmount, 10);
-            // console.log( {expense} ) //Can be used to log and see the number/string
-            //Convert it into number
-
-            totalExpense = totalExpense + expense;
-            headingEl.textContent = totalExpense;
-            //set the heading element to totalExpense
-            //Add that value to totalExpense
-        }
-
-        //onButtonClick add inputAmount to totalExpense
-        const element = document.querySelector("#btnAddExpense");
-
-        //Listen to click event
-        element.addEventListener('click', addExpenseToTotal, false);
+    //Listen to click event
+    element.addEventListener('click', addExpenseToTotal, false);
 //Take a number which starts from zero
-//Document  - Whatver you see in the browser is the document the DOM
+//document  - Whatver you see in the browser is the document the DOM
 //Every click increment a number
 
 // function counterIncrement() {
@@ -65,10 +84,10 @@
 
 
 // console.log(element)
-    //console.log(element) If you print this, you will get `null` as the script is loaded first, document is parsed from top to bottom
-    //and there is no button when this code runs. To solve this, we have two approaches - Either use onload or move script block at the bottom
-    //before you use a variable , you need to define it
-    </script>
+//console.log(element) If you print this, you will get `null` as the script is loaded first, document is parsed from top to bottom
+//and there is no button when this code runs. To solve this, we have two approaches - Either use onload or move script block at the bottom
+//before you use a variable , you need to define it
+</script>
 </body>
 
 </html>
