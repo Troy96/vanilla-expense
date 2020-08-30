@@ -8,27 +8,16 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/js/all.min.js"></script>
-
-    <!-- <style>
-    body {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-        height: 100vh;
-    }
-</style> -->
 </head>
 
 <body>
     <nav class="navbar navbar-dark bg-dark">
         <span class="navbar-brand mb-0 h1">Expenze</span>
+        <span class="navbar-brand mb-0 h1" id="headingTotal"></span>
     </nav>
 
     <div class="container-fluid bg-light" style="min-height: 100vh">
         <div class="container">
-            <h1 id="headingTotal"></h1>
 
             <div class="jumbotron mt-4">
                 <div class="input-group mb-3">
@@ -73,7 +62,7 @@
         //get the heading element
 
         //Allexpense at one place
-        const Allexpenses = [];
+        let Allexpenses = [];
 
         const inputElement = document.querySelector("#inputAmount");
         //ref to input amount
@@ -84,11 +73,7 @@
 
         const element = document.querySelector("#btnAddExpense");
 
-
-        //get the ref to desc element
-
         headingEl.textContent = totalExpense; //Check why textContent is preferred over innerHTML
-        //set the heading element to totalExpense
 
         function addExpenseToTotal() {
             const expenseItem = {}
@@ -109,11 +94,7 @@
             const someText = `Total ${totalExpense}`;
 
             headingEl.textContent = someText;
-            //set the heading element to totalExpense
-            //Add that value to totalExpense
-
-            const allExpenseHTML = Allexpenses.map(expense => createListItem(expense));
-            expenseTableEl.innerHTML = allExpenseHTML.join('');
+            renderList(Allexpenses);
 
 
         }
@@ -130,7 +111,10 @@
                         </div>
                         <div>
                             <span class="px-5">${amount}</span>
-                            <button type="button" class="btn btn-outline-danger">
+                            <button 
+                            type="button" 
+                            onclick="deleteItem(${moment.valueOf()})"
+                            class="btn btn-outline-danger">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                         </div>
@@ -145,6 +129,18 @@
                     month: 'long',
                     day: 'numeric'
                 });
+        }
+
+        function deleteItem(dateString) {
+            const newList = Allexpenses.filter(item=> item.moment.valueOf() !== dateString);
+            Allexpenses = [...newList];
+            renderList(newList);
+        }
+
+    
+        function renderList(arrOfLists) {
+            const allExpenseHTML = arrOfLists.map(expense => createListItem(expense));
+            expenseTableEl.innerHTML = allExpenseHTML.join('');
         }
 
 
