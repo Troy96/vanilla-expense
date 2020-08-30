@@ -7,6 +7,7 @@
     <title>Personal Expense</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/js/all.min.js"></script>
 
     <!-- <style>
     body {
@@ -31,14 +32,8 @@
 
             <div class="jumbotron mt-4">
                 <div class="input-group mb-3">
-                    <input
-                        type="text"
-                        id="inputAmount"
-                        class="form-control"
-                        placeholder="Amont spent"
-                        aria-label="Amount spent"
-                        aria-describedby="spent in rupee"
-                    >
+                    <input type="text" id="inputAmount" class="form-control" placeholder="Amont spent"
+                        aria-label="Amount spent" aria-describedby="spent in rupee">
                     <div class="input-group-append">
                         <span class="input-group-text" id="spent in rupee">₹</span>
                     </div>
@@ -48,27 +43,37 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="spent at">@</span>
                     </div>
-                    <input
-                        type="text"
-                        id="inputDesc"
-                        class="form-control"
-                        placeholder="Spent on"
-                        aria-label="Spent on"
-                        aria-describedby="spent at"
-                    >
+                    <input type="text" id="inputDesc" class="form-control" placeholder="Spent on" aria-label="Spent on"
+                        aria-describedby="spent at">
                     <div class="input-group-append">
                         <button class="btn btn-outline-primary" id="btnAddExpense" type="button">Add</button>
                     </div>
                 </div>
             </div>
 
-            
-            
+            <div>
+                <ul class="list-group" id="expenseTable">
+                    <li class="list-group-item d-flex justify-content-between">
+                        <div class="d-flex flex-column">
+                            Tshirt
+                            <small class="text-muted">August 30, 2020</small>
+                        </div>
+                        <div>
+                            <span class="px-5">500</span>
+                            <button type="button" class="btn btn-outline-danger btn-sm">
+                                <i class="fas fa-trash-alt"></i> </button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+
+
             <!-- <input id="inputAmount" type="text">
             <input id="inputDesc" type="text">
             <button id="btnAddExpense">+</button>
             <div id="expenseTable"></div> -->
-        
+
         </div>
     </div>
 
@@ -132,8 +137,21 @@
             // `;
 
             const allExpenseHTML = Allexpenses.map(expense => {
-                return `<div>Expense: ${expense.amount} :: Desc: ${expense.desc}</div>`
-            }).join("");
+                return `
+                <li class="list-group-item d-flex justify-content-between">
+                        <div class="d-flex flex-column">
+                            ${expense.desc}
+                            <small class="text-muted">${new Date}</small>
+                        </div>
+                        <div>
+                            <span class="px-5">${expense.amount}</span>
+                            <button type="button" class="btn btn-outline-danger">Delete
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </li>
+                `;
+            })
 
             expenseTableEl.innerHTML = allExpenseHTML;
 
@@ -163,6 +181,7 @@
 //and there is no button when this code runs. To solve this, we have two approaches - Either use onload or move script block at the bottom
 //before you use a variable , you need to define it
     </script>
+
 </body>
 
 </html>
