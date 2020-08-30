@@ -16,27 +16,47 @@
     </style>
 </head>
 <body>
-    <button id="btnCounter">+</button>
+    <button id="btnAddExpense">+</button>
+    <input id="inputAmount" type="text">
 <script>
-    //Listen to click event
+    let totalExpense = 0;
+    //init value of expense at 0
 
-    //Take a number which starts from zero
-    //Document  - Whatver you see in the browser is the document the DOM
-    let counter = 0;
-    //Every click increment a number
+    function addExpenseToTotal() {
+        const inputElement = document.querySelector("#inputAmount");
+        const textAmount = inputElement.value;
+        //console.log({ textAmount });
+      
+         //Read value from input
 
-    function counterIncrement() {
-        counter++;
-        console.log(counter);
+         const expense = parseInt(textAmount, 10);
+       // console.log( {expense} ) //Can be used to log and see the number/string
+        //Convert it into number
+
+        totalExpense = totalExpense + expense;
+        console.log(totalExpense);
+        //Add that value to totalExpense
     }
 
-    const element = document.querySelector("#btnCounter");
+    //onButtonClick add inputAmount to totalExpense
+    const element = document.querySelector("#btnAddExpense");
+    
+    //Listen to click event
+    element.addEventListener('click', addExpenseToTotal, false);
+    //Take a number which starts from zero
+    //Document  - Whatver you see in the browser is the document the DOM
+    //Every click increment a number
 
-    element.addEventListener('click', counterIncrement, false);
+    // function counterIncrement() {
+    //     counter++;
+    //     console.log(counter);
+    // } 
+
+
     // console.log(element)
-    //console.log(element) If you print this, you will get `null` as the script is loaded first, document is parsed from top to bottom
-    //and there is no button when this code runs. To solve this, we have two approaches - Either use onload or move script block at the bottom
-    //before you use a variable , you need to define it
+     //console.log(element) If you print this, you will get `null` as the script is loaded first, document is parsed from top to bottom
+     //and there is no button when this code runs. To solve this, we have two approaches - Either use onload or move script block at the bottom
+     //before you use a variable , you need to define it
 </script>
 </body>
 </html>
