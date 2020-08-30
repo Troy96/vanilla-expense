@@ -95,15 +95,12 @@
 
             const textAmount = inputElement.value;
             const textDesc = inputDescEl.value;
-            //read the description
-            //console.log({ textAmount });
-            //Read value from input
-
             const expense = parseInt(textAmount, 10);
 
             expenseItem.desc = textDesc;
             expenseItem.amount = expense;
-            //put it in object
+            expenseItem.moment = new Date();
+
             Allexpenses.push(expenseItem);
 
             // console.log( {expense} ) //Can be used to log and see the number/string
@@ -124,21 +121,30 @@
         element.addEventListener('click', addExpenseToTotal, false);
 
         //View Layer
-        function createListItem(expense) {
+        function createListItem({ desc, amount, moment }) {
             return `
                 <li class="list-group-item d-flex justify-content-between">
                         <div class="d-flex flex-column">
-                            ${expense.desc}
-                            <small class="text-muted">${new Date}</small>
+                            ${desc}
+                            <small class="text-muted">${getDateString(moment)}</small>
                         </div>
                         <div>
-                            <span class="px-5">${expense.amount}</span>
+                            <span class="px-5">${amount}</span>
                             <button type="button" class="btn btn-outline-danger">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                         </div>
                     </li>
                 `;
+        }
+
+        function getDateString(date) {
+            return date.toLocaleDateString('en-US',
+                {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
         }
 
 
@@ -156,6 +162,8 @@
 //console.log(element) If you print this, you will get `null` as the script is loaded first, document is parsed from top to bottom
 //and there is no button when this code runs. To solve this, we have two approaches - Either use onload or move script block at the bottom
 //before you use a variable , you need to define it
+
+//Do not have logic inside view and vice-versa
     </script>
 
 </body>
